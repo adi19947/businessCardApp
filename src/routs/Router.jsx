@@ -24,23 +24,12 @@ import CardComponent from "../sandbox/data-display/CardComponent";
 import TypographyComponent from "../sandbox/data-display/typographyComponent";
 import StackComp from "../sandbox/data-display/StackComp";
 import Weather from "../sandbox/effect-hook/Weather";
-import RenderComponent from "../sandbox/render/RenderComponent";
-import Country2 from "../sandbox/effect-hook/Country2";
+
 import ChooseCountry from "../sandbox/ChooseCountry";
-import ChangeColor from "../sandbox/class/stateTasks/ChangeColor";
-import ChangeStyle from "../sandbox/class/stateTasks/ChangeStyle";
-import Data from "../sandbox/class/memorization/Data";
-import ShowData from "../sandbox/class/memorization/ShowData";
-import MyCounter from "../sandbox/custom hooks/MyCounter";
+
 import SignUpPage from "../users/pages/SignUpPage";
-import Form from "../cards/components/Form";
-import MyForm from "../sandbox/forms/MyForm";
-import MyForm2 from "../sandbox/forms/MyForm2";
-import TestForm from "../sandbox/forms/TestForm";
-import LoginComp from "../users/pages/LoginComp";
-import SignUpComp from "../users/pages/SignUpComp";
-import Menu from "../layout/header/topNavBar/menu/Menu";
-import DialogAlert from "../cards/components/DialogAlert";
+
+import SearchBar from "../layout/header/topNavBar/search-bar/SearchBar";
 
 export default function Router() {
   return (
@@ -72,7 +61,7 @@ export default function Router() {
         <Route path={ROUTES.MY_CARDS} element={<MyCardsPage />} />
         <Route path={ROUTES.CREATE_CARD} element={<CreateCardPage />} />
         <Route path={ROUTES.EDIT_CARD} element={<EditCardPage />} />
-        <Route path="test" element={<DialogAlert />} />
+        <Route path="test" element={<SearchBar />} />
 
         <Route path={ROUTES.ERROR} element={<ErrorPage />} />
       </Routes>

@@ -9,9 +9,14 @@ import {
   DialogTitle,
 } from "@mui/material";
 
-export default function DialogAlert({ open, setOpen, handleDelete, id }) {
+export default function DialogAlert({
+  openDialog,
+  setOpenDialog,
+  handleDelete,
+  id,
+}) {
   return (
-    <Dialog open={open} onClose={() => setOpen(false)}>
+    <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
       <DialogTitle>Confirm Delete</DialogTitle>
       <DialogContent>
         <DialogContentText>
@@ -19,7 +24,7 @@ export default function DialogAlert({ open, setOpen, handleDelete, id }) {
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={() => setOpen(false)}>Cancel</Button>
+        <Button onClick={() => setOpenDialog(false)}>Cancel</Button>
         <Button
           onClick={() => handleDelete(id)}
           variant="contained"

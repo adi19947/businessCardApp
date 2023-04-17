@@ -1,16 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
 import Avatar from "@mui/material/Avatar";
 import { useUser } from "../../../../users/providers/UserProvider";
 import { Box } from "@mui/material";
 import Menu from "../menu/Menu";
-import { useMenuContext } from "../../../../providers/MenuProvider";
+import { useMenu } from "../../../../providers/MenuProvider";
 
 const Logged = () => {
   const { user } = useUser();
 
-  const { handleToggle } = useMenuContext();
+  const setOpen = useMenu();
 
   return (
     <>
@@ -25,7 +25,7 @@ const Logged = () => {
       >
         {`Hello ${user.firstName}`}
         <Tooltip title="Open settings">
-          <IconButton onClick={handleToggle}>
+          <IconButton onClick={() => setOpen(true)}>
             <Avatar alt="Bird" src="assets/images/avatar.png" />
           </IconButton>
         </Tooltip>

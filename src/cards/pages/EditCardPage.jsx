@@ -14,7 +14,12 @@ import cardSchema from "../../cards/models/joi-schema/cardSchema";
 
 export default function EditCardPage() {
   const { id } = useParams();
-  const { handleUpdateCard, handleGetCard, card } = useCardsContext();
+
+  const {
+    handleUpdateCard,
+    handleGetCard,
+    value: { card },
+  } = useCardsContext();
   const { user } = useUser();
   const { value, ...rest } = useForm(initialCardForm, cardSchema, () => {
     handleUpdateCard(card._id, {
@@ -34,23 +39,26 @@ export default function EditCardPage() {
   if (!user) return <Navigate replace to={ROUTES.CARDS} />;
 
   return (
-    <Container
-      sx={{
-        paddingTop: 8,
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <CardForm
-        title="edit card"
-        onSubmit={rest.onSubmit}
-        onReset={rest.handleReset}
-        errors={value.errors}
-        onFormChange={rest.validateForm}
-        onInputChange={rest.handleChange}
-        data={value.data}
-      />
-    </Container>
+    <>
+      <PageHeader />
+      <Container
+        sx={{
+          paddingTop: 8,
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <CardForm
+          title="edit card"
+          onSubmit={rest.onSubmit}
+          onReset={rest.handleReset}
+          errors={value.errors}
+          onFormChange={rest.validateForm}
+          onInputChange={rest.handleChange}
+          data={value.data}
+        />
+      </Container>
+    </>
   );
 }

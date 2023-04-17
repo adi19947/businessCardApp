@@ -1,4 +1,10 @@
-import { createContext, useContext, useState } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useMemo,
+  useState,
+} from "react";
 import useAxios from "../hooks/useAxios";
 import {
   changeLikeStatus,
@@ -20,7 +26,14 @@ export const CardsProvider = ({ children }) => {
   return <Provider value={context}>{children}</Provider>;
 };
 
-export const useCardsContext = () => useContext(CardsContext);
+// export const useCardsContext = () => useContext(CardsContext);
+
+export const useCardsContext = () => {
+  const context = useContext(CardsContext);
+  if (!context)
+    throw new Error("useCardsContext must be used within a CardsProvider");
+  return context;
+};
 
 export default function useCardsContextProvider() {
   const [cards, setCards] = useState([]);
@@ -38,7 +51,7 @@ export default function useCardsContextProvider() {
     setCard(card);
   };
 
-  const handleGetCards = async () => {
+  const handleGetCards = useCallback(async () => {
     try {
       setLoading(true);
       const cards = await getCards();
@@ -47,9 +60,9 @@ export default function useCardsContextProvider() {
     } catch (error) {
       requestStatus(false, error, null);
     }
-  };
+  }, []);
 
-  const handleGetMyCards = async () => {
+  const handleGetMyCards = useCallback(async () => {
     try {
       setLoading(true);
       const cards = await getMyCards();
@@ -57,9 +70,9 @@ export default function useCardsContextProvider() {
     } catch (error) {
       requestStatus(false, error, null);
     }
-  };
+  }, []);
 
-  const handleDeleteCard = async (cardId) => {
+  const handleDeleteCard = useCallback(async (cardId) => {
     try {
       setLoading(true);
       await deleteCard(cardId);
@@ -68,10 +81,10 @@ export default function useCardsContextProvider() {
       setLoading(false);
       setError(error);
     }
-  };
+  }, []);
 
   //handleGetCard
-  const handleGetCard = async (cardId) => {
+  const handleGetCard = useCallback(async (cardId) => {
     try {
       setLoading(true);
       const card = await getCard(cardId);
@@ -80,10 +93,10 @@ export default function useCardsContextProvider() {
     } catch (error) {
       requestStatus(false, error, null);
     }
-  };
+  }, []);
 
   //handleUpdateCard
-  const handleUpdateCard = async (cardId, cardFromClient) => {
+  const handleUpdateCard = useCallback(async (cardId, cardFromClient) => {
     try {
       setLoading(true);
       const card = await editCard(cardId, cardFromClient);
@@ -92,10 +105,10 @@ export default function useCardsContextProvider() {
     } catch (error) {
       requestStatus(false, error, null);
     }
-  };
+  }, []);
 
   //handleLikeCard
-  const handleLikeCard = async (cardId) => {
+  const handleLikeCard = useCallback(async (cardId) => {
     try {
       const card = await changeLikeStatus(cardId);
       requestStatus(false, null, cards, card);
@@ -103,9 +116,9 @@ export default function useCardsContextProvider() {
     } catch (error) {
       requestStatus(false, error, null);
     }
-  };
+  }, []);
   //handleGetFavCards
-  const handleGetFavCards = async () => {
+  const handleGetFavCards = useCallback(async () => {
     try {
       setLoading(true);
       const cards = await getCards();
@@ -114,10 +127,10 @@ export default function useCardsContextProvider() {
     } catch (error) {
       requestStatus(false, error, null);
     }
-  };
+  }, []);
 
   //handleCreateCard
-  const handleCreateCard = async (cardFromClient) => {
+  const handleCreateCard = useCallback(async (cardFromClient) => {
     try {
       setLoading(true);
       const card = await createCard(cardFromClient);
@@ -126,13 +139,14 @@ export default function useCardsContextProvider() {
     } catch (error) {
       requestStatus(false, error, null);
     }
-  };
+  }, []);
+
+  const value = useMemo(() => {
+    return { isLoading, cards, card, error };
+  }, [isLoading, cards, card, error]);
 
   return {
-    cards,
-    isLoading,
-    card,
-    error,
+    value,
     handleGetCards,
     handleGetMyCards,
     handleDeleteCard,

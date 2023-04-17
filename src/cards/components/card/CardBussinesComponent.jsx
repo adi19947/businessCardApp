@@ -28,8 +28,6 @@ export default function CardBussinesComponent({
   handleDelete,
   handleEdit,
   handleLike,
-  open,
-  setOpen,
 }) {
   const navigate = useNavigate();
 
@@ -54,8 +52,6 @@ export default function CardBussinesComponent({
           handleDelete={handleDelete}
           handleEdit={handleEdit}
           handleLike={handleLike}
-          open={open}
-          setOpen={setOpen}
         />
       </Card>
     </>

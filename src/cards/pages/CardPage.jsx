@@ -1,5 +1,5 @@
 import { Container } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import PageHeader from "../../components/PageHeader";
 
 import Spinner from "./../../cards/components/Spinner";
@@ -9,14 +9,11 @@ import CardsFeedback from "../components/CardsFeedback";
 import { useCardsContext } from "../../providers/CardsProvider";
 
 export default function CardPage() {
-  const { cards, isLoading, error, handleGetCards } = useCardsContext();
-
+  const { value, handleGetCards } = useCardsContext();
+  const { cards, error, isLoading } = value;
   useEffect(() => {
     handleGetCards();
   }, []);
-  const handleDelete = (id) => {
-    console.log(`card ${id} deleted`);
-  };
 
   if (isLoading) return <Spinner />;
   if (error) return <Error errorMessage={error} />;
@@ -28,12 +25,7 @@ export default function CardPage() {
           title="Cards"
           subtitle="On this page you can find all bussines cards from all categories"
         />
-        <CardsFeedback
-          isLoading={isLoading}
-          error={error}
-          cards={cards}
-          handleDelete={handleDelete}
-        />
+        <CardsFeedback isLoading={isLoading} error={error} cards={cards} />
       </Container>
     </div>
   );

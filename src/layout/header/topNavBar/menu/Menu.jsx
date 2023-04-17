@@ -1,71 +1,78 @@
-import { Box, Popper } from "@mui/material";
-import React, { useState } from "react";
-import { useMenuContext } from "../../../../providers/MenuProvider";
-import MenuLink from "../../../../routs/components/MenuLink";
-import ROUTES from "../../../../routs/routesModel";
+import MuiMenu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import Box from "@mui/material/Box";
+
 import { useUser } from "../../../../users/providers/UserProvider";
-import MoreButton from "../right-navigation/MoreButton";
-import { useUsers } from "../../../../users/hooks/useUsers";
-export default function Menu() {
-  const { isOpen, handleClose } = useMenuContext();
+import useUsers from "../../../../users/hooks/useUsers";
+
+import ROUTES from "../../../../routs/routesModel";
+import MenuLink from "../../../../routs/components/MenuLink";
+
+const Menu = ({ isOpen, anchorEl, onClose }) => {
   const { user } = useUser();
+  const { handleLogout } = useUsers();
+
+  const onLogout = () => {
+    handleLogout();
+    onClose();
+  };
 
   return (
-    <>
-      {isOpen && (
-        <Box sx={{ width: "fit-content", bgcolor: "white" }}>
-          {user && <MoreButton /> ? (
-            <MenuLink
-              text="about"
-              navigateTo={ROUTES.ABOUT}
-              onClick={handleClose}
-            />
-          ) : null}
-          {user && (
-            <MenuLink
-              text="profile"
-              navigateTo={ROUTES.ABOUT}
-              onClick={handleClose}
-            />
-          )}
-          {user && (
-            <MenuLink
-              text="edit account"
-              navigateTo={ROUTES.ABOUT}
-              onClick={handleClose}
-            />
-          )}
-          {user && (
-            <MenuLink
-              text="logout"
-              navigateTo={ROUTES.ABOUT}
-              onClick={handleClose}
-            />
-          )}
-
-          {!user && (
-            <MenuLink
-              text="about"
-              navigateTo={ROUTES.ABOUT}
-              onClick={handleClose}
-            />
-          )}
-          {!user && (
+    <MuiMenu
+      open={isOpen}
+      onClose={onClose}
+      anchorEl={anchorEl}
+      anchorOrigin={{
+        vertical: "top",
+        horizontal: "right",
+      }}
+      keepMounted
+      transformOrigin={{
+        vertical: "top",
+        horizontal: "right",
+      }}
+    >
+      <Box>
+        <MenuLink
+          text="about"
+          navigateTo={ROUTES.ABOUT}
+          onClick={onClose}
+          styles={{ display: { xs: "block", md: "none" } }}
+        />
+        {!user && (
+          <>
             <MenuLink
               text="login"
               navigateTo={ROUTES.LOGIN}
-              onClick={handleClose}
+              onClick={onClose}
+              styles={{ display: { xs: "block", md: "none" } }}
             />
-          )}
-          {!user && (
             <MenuLink
-              text="sign-up"
-              navigateTo={ROUTES.SIGN_UP}
-              onClick={handleClose}
+              text="signup"
+              navigateTo={ROUTES.SIGNUP}
+              onClick={onClose}
+              styles={{ display: { xs: "block", md: "none" } }}
             />
-          )}
-        </Box>
-      )}
-    </>
+          </>
+        )}
+        {user && (
+          <>
+            <MenuLink
+              text="profile"
+              navigateTo={ROUTES.USER_PROFILE}
+              onClick={onClose}
+            />
+            <MenuLink
+              text="edit account"
+              navigateTo={ROUTES.EDIT_USER}
+              onClick={onClose}
+            />
+            <MenuItem onClick={onLogout}>Logout</MenuItem>
+          </>
+        )}
+      </Box>
+    </MuiMenu>
   );
-}
+};
+
+export default Menu;

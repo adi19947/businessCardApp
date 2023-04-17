@@ -17,14 +17,20 @@ export default function RightNavBar() {
 
   return (
     <>
-      <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+      <Box
+        sx={{
+          display: { xs: "none", md: "inline-flex" },
+          alignItems: "center",
+          gap: 1,
+        }}
+      >
         <IconButton sx={{ ml: 1 }} onClick={toggleDarkMode}>
           {isDark ? <LightModeIcon /> : <DarkModeIcon />}
         </IconButton>
 
         {user ? <Logged /> : <NotLogged />}
-        <MoreButton />
       </Box>
+      <MoreButton />
     </>
   );
 }

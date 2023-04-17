@@ -11,19 +11,13 @@ import { useNavigate } from "react-router-dom";
 import ROUTES from "../../../routs/routesModel";
 
 export default function CardActionBar({
-  handleEdit,
   handleLike,
   id,
   user_id,
   handleDelete,
-  open,
-  setOpen,
 }) {
   const { user } = useUser();
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+  const [openDialog, setOpenDialog] = useState(false);
 
   const navigate = useNavigate();
   return (
@@ -32,7 +26,10 @@ export default function CardActionBar({
         <Box>
           {user?.isAdmin || user?.id == user_id ? (
             <>
-              <IconButton aria-label="Delete Card" onClick={handleClickOpen}>
+              <IconButton
+                aria-label="Delete Card"
+                onClick={() => setOpenDialog(true)}
+              >
                 <DeleteIcon />
               </IconButton>
               <IconButton
@@ -60,8 +57,8 @@ export default function CardActionBar({
         </Box>
       </CardActions>
       <DialogAlert
-        open={open}
-        setOpen={setOpen}
+        openDialog={openDialog}
+        setOpenDialog={setOpenDialog}
         handleDelete={handleDelete}
         id={id}
       />
