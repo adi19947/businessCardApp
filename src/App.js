@@ -12,6 +12,7 @@ import ThemeProvider from './providers/ThemeProvider';
 import SnackbarProvider from './providers/SnackbarProvider';
 import UserProvider from './users/providers/UserProvider';
 import { CardsProvider } from './providers/CardsProvider';
+import useAxios from './hooks/useAxios';
 
 
 

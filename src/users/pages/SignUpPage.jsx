@@ -9,12 +9,14 @@ import initialSignupForm from "../helpers/initialForms/initialSignupForm";
 import useUsers from "../hooks/useUsers";
 import signupSchema from "../models/joi-schema/signupSchema";
 import { useUser } from "../providers/UserProvider";
+import { useTheme } from "../../providers/ThemeProvider";
 export default function SignUpPage() {
   // const user = true;
 
   // if (user) return <Navigate replace to={ROUTES.CARDS} />;
   const { handleSignup } = useUsers();
   const { user } = useUser();
+
   const { value, ...rest } = useForm(
     initialSignupForm,
     signupSchema,

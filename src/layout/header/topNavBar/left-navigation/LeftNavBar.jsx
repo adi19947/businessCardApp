@@ -23,7 +23,7 @@ export default function LeftNavBar() {
         }}
       >
         <Logo />
-        <NavItem to={ROUTES.CARDS} label="CARDS" />
+        {user && <NavItem to={ROUTES.CARDS} label="CARDS" />}
         <NavItem to={ROUTES.ABOUT} label="ABOUT" />
         {user && <NavItem to={ROUTES.FAV_CARDS} label="favorites" />}
         {user && user.isBusiness ? (

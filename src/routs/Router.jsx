@@ -37,6 +37,7 @@ export default function Router() {
       <Routes>
         <Route path={ROUTES.CARDS} element={<CardPage />} />
         <Route path={ROUTES.ROOT} element={<CardPage />} />
+
         <Route path={ROUTES.ABOUT} element={<AboutPage />} />
         <Route path={ROUTES.LOGIN} element={<LoginPage />} />
         <Route path={ROUTES.SIGN_UP} element={<SignUpPage />} />

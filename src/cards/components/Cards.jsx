@@ -4,19 +4,16 @@ import Grid from "@mui/material/Grid";
 
 import { useCardsContext } from "../../providers/CardsProvider";
 
-export default function Cards() {
+export default function Cards({ cards }) {
   const { handleDeleteCard, handleGetCards, value } = useCardsContext();
-  const { cards } = value;
+  const { filteredCards } = value;
   const handleDelete = async (id) => {
     await handleDeleteCard(id);
     handleGetCards();
   };
-  console.log(cards);
+
   const handleEdit = (id) => {
     console.log(`Card ${id} is Edited`);
-  };
-  const handleLike = (id) => {
-    console.log(`Card ${id} is Liked`);
   };
 
   return (
@@ -28,7 +25,6 @@ export default function Cards() {
               card={card}
               key={card._id}
               handleEdit={handleEdit}
-              handleLike={handleLike}
               handleDelete={handleDelete}
             />
           </Grid>

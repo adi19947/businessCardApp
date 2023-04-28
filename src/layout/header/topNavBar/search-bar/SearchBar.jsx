@@ -3,6 +3,7 @@ import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
 import React, { useState } from "react";
 import { useCardsContext } from "../../../../providers/CardsProvider";
+import { useSearchParams } from "react-router-dom";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -45,14 +46,13 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function SearchBar() {
-  const [searchQuery, setSearchQuery] = useState("");
   const { cards } = useCardsContext();
-  const handleSearchInputChange = (event) => {
-    setSearchQuery(event.target.value);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const handleChange = ({ target }) => {
+    setSearchParams({ q: target.value });
   };
 
-  console.log(cards);
-  console.log(searchQuery);
   return (
     <Search>
       <SearchIconWrapper>
@@ -61,7 +61,8 @@ export default function SearchBar() {
       <StyledInputBase
         placeholder="Search…"
         inputProps={{ "aria-label": "search" }}
-        onChange={handleSearchInputChange}
+        value={searchParams.get("q") ?? ""}
+        onChange={handleChange}
       />
     </Search>
   );

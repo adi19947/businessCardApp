@@ -9,7 +9,7 @@ import CardsFeedback from "../components/CardsFeedback";
 
 export default function MyCards() {
   const { value, handleGetMyCards } = useCardsContext();
-  const { cards, error, isLoading } = value;
+  const { filteredCards, error, isLoading } = value;
   const { user } = useUser();
   const navigate = useNavigate();
 
@@ -25,10 +25,14 @@ export default function MyCards() {
     <div>
       <Container sx={{ mt: 2 }}>
         <PageHeader
-          title="Cards"
-          subtitle="On this page you can find all bussines cards from all categories"
+          title="My Cards"
+          subtitle="On this page you can find your business cards"
         />
-        <CardsFeedback isLoading={isLoading} error={error} cards={cards} />
+        <CardsFeedback
+          isLoading={isLoading}
+          error={error}
+          cards={filteredCards}
+        />
       </Container>
     </div>
   );

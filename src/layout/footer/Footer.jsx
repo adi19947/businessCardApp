@@ -17,6 +17,7 @@ import ROUTES from "../../routs/routesModel";
 export default function Footer() {
   const navigate = useNavigate();
   const { user } = useUser();
+
   return (
     <Paper
       sx={{ position: "sticky", bottom: 0, left: 0, right: 0 }}
@@ -28,11 +29,13 @@ export default function Footer() {
           icon={<InfoIcon />}
           onClick={() => navigate(ROUTES.ABOUT)}
         />
-        <BottomNavigationAction
-          label="Cards"
-          icon={<StyleIcon />}
-          onClick={() => navigate(ROUTES.CARDS)}
-        />
+        {user?.isBusiness && (
+          <BottomNavigationAction
+            label="Cards"
+            icon={<StyleIcon />}
+            onClick={() => navigate(ROUTES.CARDS)}
+          />
+        )}
         {user?.isBusiness && (
           <BottomNavigationAction
             label="My cards"

@@ -1,4 +1,5 @@
 import axios from "axios";
+
 const apiUrl = "http://localhost:8181";
 export const getCards = async () => {
 
@@ -65,6 +66,7 @@ export const editCard = async (cardId, normalaizedCard) => {
 
 export const changeLikeStatus = async (cardId) => {
     try {
+
         const { data } = await axios.patch(`${apiUrl}/cards/${cardId}`);
         return data;
     } catch (error) {

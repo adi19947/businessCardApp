@@ -7,6 +7,7 @@ import useUsers from "../../../../users/hooks/useUsers";
 
 import ROUTES from "../../../../routs/routesModel";
 import MenuLink from "../../../../routs/components/MenuLink";
+import { useNavigate } from "react-router-dom";
 
 const Menu = ({ isOpen, anchorEl, onClose }) => {
   const { user } = useUser();
@@ -48,8 +49,8 @@ const Menu = ({ isOpen, anchorEl, onClose }) => {
               styles={{ display: { xs: "block", md: "none" } }}
             />
             <MenuLink
-              text="signup"
-              navigateTo={ROUTES.SIGNUP}
+              text="sign-up"
+              navigateTo={ROUTES.SIGN_UP}
               onClick={onClose}
               styles={{ display: { xs: "block", md: "none" } }}
             />

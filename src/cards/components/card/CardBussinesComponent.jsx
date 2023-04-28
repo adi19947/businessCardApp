@@ -27,7 +27,6 @@ export default function CardBussinesComponent({
   card,
   handleDelete,
   handleEdit,
-  handleLike,
 }) {
   const navigate = useNavigate();
 
@@ -51,7 +50,7 @@ export default function CardBussinesComponent({
           user_id={card.user_id}
           handleDelete={handleDelete}
           handleEdit={handleEdit}
-          handleLike={handleLike}
+          cardLikes={card.likes}
         />
       </Card>
     </>

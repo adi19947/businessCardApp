@@ -1,4 +1,4 @@
-import { Container } from "@mui/material";
+import { Box, Container } from "@mui/material";
 import React, { useEffect } from "react";
 import PageHeader from "../../components/PageHeader";
 
@@ -10,7 +10,8 @@ import { useCardsContext } from "../../providers/CardsProvider";
 
 export default function CardPage() {
   const { value, handleGetCards } = useCardsContext();
-  const { cards, error, isLoading } = value;
+  const { filteredCards, error, isLoading } = value;
+
   useEffect(() => {
     handleGetCards();
   }, []);
@@ -19,14 +20,22 @@ export default function CardPage() {
   if (error) return <Error errorMessage={error} />;
 
   return (
-    <div>
-      <Container sx={{ mt: 2 }}>
+    <Box>
+      <Container
+        sx={{
+          mt: 2,
+        }}
+      >
         <PageHeader
           title="Cards"
-          subtitle="On this page you can find all bussines cards from all categories"
+          subtitle="On this page you can find all business cards from all categories"
         />
-        <CardsFeedback isLoading={isLoading} error={error} cards={cards} />
+        <CardsFeedback
+          isLoading={isLoading}
+          error={error}
+          cards={filteredCards}
+        />
       </Container>
-    </div>
+    </Box>
   );
 }

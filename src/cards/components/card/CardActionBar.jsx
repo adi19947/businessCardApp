@@ -9,14 +9,23 @@ import { useUser } from "../../../users/providers/UserProvider";
 import DialogAlert from "../DialogAlert";
 import { useNavigate } from "react-router-dom";
 import ROUTES from "../../../routs/routesModel";
+import { useCardsContext } from "../../../providers/CardsProvider";
 
 export default function CardActionBar({
-  handleLike,
   id,
   user_id,
   handleDelete,
+  cardLikes,
 }) {
   const { user } = useUser();
+  const { handleLikeCard } = useCardsContext();
+
+  const [isLiked, setLiked] = useState(() => cardLikes?.includes(user.id));
+
+  const onLike = async () => {
+    setLiked((prev) => !prev);
+    await handleLikeCard(id);
+  };
   const [openDialog, setOpenDialog] = useState(false);
 
   const navigate = useNavigate();
@@ -49,7 +58,8 @@ export default function CardActionBar({
           {user && (
             <IconButton
               aria-label="Add to favorite"
-              onClick={() => handleLike(id)}
+              onClick={onLike}
+              sx={{ color: isLiked ? "red" : "gray" }}
             >
               <FavoriteIcon />
             </IconButton>

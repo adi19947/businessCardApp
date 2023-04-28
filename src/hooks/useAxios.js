@@ -7,11 +7,12 @@ export default function useAxios() {
     const { token } = useUser();
 
     useEffect(() => {
+
         axios.defaults.headers.common["x-auth-token"] = token;
-        console.log("out");
+
 
         const requestInterceptor = axios.interceptors.request.use((data) => {
-            console.log("in");
+
             return Promise.resolve(data);
         }, null);
 
@@ -28,4 +29,5 @@ export default function useAxios() {
             axios.interceptors.response.eject(responseInterceptor);
         };
     }, [snack, token]);
+
 }

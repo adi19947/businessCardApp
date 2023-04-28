@@ -22,8 +22,6 @@ export default function LoginPage() {
   if (user) return <Navigate replace to={ROUTES.CARDS} />;
   return (
     <>
-      <PageHeader title="Welcome to login page" subtitle="login page" />
-
       <Container
         sx={{
           pt: 8,
