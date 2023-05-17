@@ -30,6 +30,6 @@ const PageHeader = ({ title, subtitle }) => {
 export default PageHeader;
 
 PageHeader.propTypes = {
-  title: string.isRequired,
-  subtitle: string.isRequired,
+  title: string,
+  subtitle: string,
 };

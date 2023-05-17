@@ -1,5 +1,5 @@
 import { Box, CardActions, IconButton } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import CallIcon from "@mui/icons-material/Call";
@@ -18,9 +18,10 @@ export default function CardActionBar({
   cardLikes,
 }) {
   const { user } = useUser();
+
   const { handleLikeCard } = useCardsContext();
 
-  const [isLiked, setLiked] = useState(() => cardLikes?.includes(user.id));
+  const [isLiked, setLiked] = useState(cardLikes?.includes(user?.id));
 
   const onLike = async () => {
     setLiked((prev) => !prev);
@@ -33,21 +34,23 @@ export default function CardActionBar({
     <>
       <CardActions sx={{ paddingTop: 0, justifyContent: "space-between" }}>
         <Box>
-          {user?.isAdmin || user?.id == user_id ? (
-            <>
-              <IconButton
-                aria-label="Delete Card"
-                onClick={() => setOpenDialog(true)}
-              >
-                <DeleteIcon />
-              </IconButton>
-              <IconButton
-                aria-label="Edit Card"
-                onClick={() => navigate(`${ROUTES.EDIT_CARD}/${id}`)}
-              >
-                <ModeEditIcon />
-              </IconButton>
-            </>
+          {user?.isAdmin || (user?.isBusiness && user?.id == user_id) ? (
+            <IconButton
+              aria-label="Delete Card"
+              onClick={() => setOpenDialog(true)}
+            >
+              <DeleteIcon />
+            </IconButton>
+          ) : null}
+
+          {(user?.isAdmin && user?.id == user_id) ||
+          (user?.isBusiness && user?.id == user_id) ? (
+            <IconButton
+              aria-label="Edit Card"
+              onClick={() => navigate(`${ROUTES.EDIT_CARD}/${id}`)}
+            >
+              <ModeEditIcon />
+            </IconButton>
           ) : null}
         </Box>
 
@@ -59,7 +62,9 @@ export default function CardActionBar({
             <IconButton
               aria-label="Add to favorite"
               onClick={onLike}
-              sx={{ color: isLiked ? "red" : "gray" }}
+              sx={{
+                color: isLiked ? "red" : "gray",
+              }}
             >
               <FavoriteIcon />
             </IconButton>
@@ -78,6 +83,6 @@ export default function CardActionBar({
 
 CardActionBar.propTypes = {
   handleEdit: func.isRequired,
-  handleLike: func.isRequired,
+  handleLike: func,
   id: string.isRequired,
 };

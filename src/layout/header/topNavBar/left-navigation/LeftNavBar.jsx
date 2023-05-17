@@ -5,11 +5,11 @@ import ROUTES from "../../../../routs/routesModel";
 import { useUser } from "../../../../users/providers/UserProvider";
 import Logo from "../logo/Logo";
 import LogoIcon from "../logo/LogoIcon";
+import { useNavigate } from "react-router-dom";
 
 export default function LeftNavBar() {
   const { user } = useUser();
 
-  console.log(user);
   return (
     <Box sx={{ display: "flex", alignItems: "center" }}>
       <LogoIcon />
@@ -28,6 +28,12 @@ export default function LeftNavBar() {
         {user && <NavItem to={ROUTES.FAV_CARDS} label="favorites" />}
         {user && user.isBusiness ? (
           <NavItem to={ROUTES.MY_CARDS} label="MY Cards" />
+        ) : null}
+        {user && user.isAdmin ? (
+          <NavItem to={ROUTES.SANDBOX} label="sandbox" />
+        ) : null}
+        {user && user.isAdmin ? (
+          <NavItem to={ROUTES.USERS} label="users management" />
         ) : null}
       </Box>
     </Box>

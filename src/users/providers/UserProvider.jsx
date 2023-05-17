@@ -1,6 +1,7 @@
 import { node } from "prop-types";
 import React, {
   createContext,
+  useCallback,
   useContext,
   useEffect,
   useMemo,
@@ -10,10 +11,13 @@ import {
   getTokenFromLocalStorage,
   getUser,
 } from "../services/localStorageService";
+import { useSnack } from "../../providers/SnackbarProvider";
+
 const userContext = createContext();
 export default function UserProvider({ children }) {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(getTokenFromLocalStorage());
+
   useEffect(() => {
     if (!user) {
       const userFromLocalStorage = getUser();
@@ -23,7 +27,7 @@ export default function UserProvider({ children }) {
 
   const value = useMemo(
     () => ({ user, setUser, token, setToken }),
-    [user, token]
+    [user, token, setUser]
   );
 
   return <userContext.Provider value={value}>{children}</userContext.Provider>;

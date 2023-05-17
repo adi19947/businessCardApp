@@ -7,7 +7,6 @@ import useUsers from "../../../../users/hooks/useUsers";
 
 import ROUTES from "../../../../routs/routesModel";
 import MenuLink from "../../../../routs/components/MenuLink";
-import { useNavigate } from "react-router-dom";
 
 const Menu = ({ isOpen, anchorEl, onClose }) => {
   const { user } = useUser();
@@ -68,6 +67,7 @@ const Menu = ({ isOpen, anchorEl, onClose }) => {
               navigateTo={ROUTES.EDIT_USER}
               onClick={onClose}
             />
+
             <MenuItem onClick={onLogout}>Logout</MenuItem>
           </>
         )}

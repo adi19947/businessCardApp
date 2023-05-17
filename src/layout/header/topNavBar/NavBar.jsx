@@ -4,13 +4,17 @@ import LeftNavBar from "./left-navigation/LeftNavBar";
 
 import RightNavBar from "./right-navigation/RightNavBar";
 import SearchBar from "./search-bar/SearchBar";
+import { useLocation } from "react-router-dom";
 
 export default function NavBar() {
+  const location = useLocation();
+  const hideSearchBar = location.pathname.includes("card-info");
+  console.log(location);
   return (
     <AppBar position="sticky" color="primary" elevation={10}>
       <Toolbar sx={{ justifyContent: "space-between" }}>
         <LeftNavBar />
-        <SearchBar />
+        {!hideSearchBar && <SearchBar />}
         <RightNavBar />
       </Toolbar>
     </AppBar>

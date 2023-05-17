@@ -1,6 +1,6 @@
 import { useState, useCallback, useMemo } from "react";
 import useAxios from "../../hooks/useAxios";
-import { login, signup } from "../services/usersApiService";
+import { login, signup, updateUser } from "../services/usersApiService";
 import {
   getUser,
   removeToken,
@@ -11,6 +11,9 @@ import { useUser } from "../providers/UserProvider";
 import { useNavigate } from "react-router-dom";
 import ROUTES from "../../routs/routesModel";
 import normalizeUser from "../helpers/normalization/normalizeUser";
+import { useSnack } from "../../providers/SnackbarProvider";
+import mapUserToModel from "../helpers/normalization/mapUserToModel";
+import userBackendToClient from "../helpers/normalization/userBackendToClient";
 
 
 const useUsers = () => {
@@ -19,7 +22,7 @@ const useUsers = () => {
 
   const navigate = useNavigate();
   const { user, setUser, setToken } = useUser();
-
+  const snack = useSnack();
   useAxios();
 
   const requestStatus = useCallback(
@@ -45,7 +48,8 @@ const useUsers = () => {
   }, []);
 
   const handleLogout = useCallback(() => {
-    removeTokenFromLocalStorage()
+    removeTokenFromLocalStorage();
+    navigate(ROUTES.ROOT);
     setUser(null);
   }, [setUser]);
 
@@ -66,6 +70,23 @@ const useUsers = () => {
     [requestStatus, handleLogin]
   );
 
+
+  const handleUpdateUser = useCallback(async (userId, newUser) => {
+    try {
+      setLoading(true);
+      const user = await updateUser(userId, newUser);
+      const modelUser = userBackendToClient(user);
+      console.log(modelUser);
+      requestStatus(false, null, modelUser);
+
+      snack("success", "The user has been successfully updated");
+    } catch (error) {
+      requestStatus(false, error, []);
+    }
+  }, []);
+
+
+
   const value = useMemo(
     () => ({ isLoading, error, user }),
     [isLoading, error, user]
@@ -75,7 +96,7 @@ const useUsers = () => {
     value,
     handleLogin,
     handleLogout,
-    handleSignup
+    handleSignup, handleUpdateUser
   };
 };
 

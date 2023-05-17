@@ -23,15 +23,12 @@ const Logged = () => {
           alignItems: "center",
         }}
       >
-        {`Hello ${user.firstName}`}
+        {`Hello ${user?.firstName}`}
         <Tooltip title="Open settings">
           <IconButton onClick={() => setOpen(true)}>
-            <Avatar alt="Bird" src="assets/images/avatar.png" />
+            <Avatar alt={user?.alt} src={user?.image} />
           </IconButton>
         </Tooltip>
-        <Box sx={{ position: "absolute", right: 0, top: 68 }}>
-          <Menu />
-        </Box>
       </Box>
     </>
   );

@@ -46,7 +46,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function SearchBar() {
-  const { cards } = useCardsContext();
   const [searchParams, setSearchParams] = useSearchParams();
 
   const handleChange = ({ target }) => {

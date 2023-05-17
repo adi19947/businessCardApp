@@ -5,11 +5,8 @@ import { useUser } from "./../users/providers/UserProvider";
 export default function useAxios() {
     const snack = useSnack();
     const { token } = useUser();
-
+    axios.defaults.headers.common["x-auth-token"] = token;
     useEffect(() => {
-
-        axios.defaults.headers.common["x-auth-token"] = token;
-
 
         const requestInterceptor = axios.interceptors.request.use((data) => {
 

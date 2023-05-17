@@ -10,6 +10,7 @@ import NotLogged from "./NotLogged";
 import Logged from "./Logged";
 import { useUser } from "../../../../users/providers/UserProvider";
 import MoreButton from "./MoreButton";
+import AddButton from "./AddButton";
 
 export default function RightNavBar() {
   const { isDark, toggleDarkMode } = useTheme();
@@ -30,6 +31,7 @@ export default function RightNavBar() {
 
         {user ? <Logged /> : <NotLogged />}
       </Box>
+      {user?.isBusiness ? <AddButton /> : null}
       <MoreButton />
     </>
   );

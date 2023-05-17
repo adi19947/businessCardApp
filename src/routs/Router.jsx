@@ -30,6 +30,10 @@ import ChooseCountry from "../sandbox/ChooseCountry";
 import SignUpPage from "../users/pages/SignUpPage";
 
 import SearchBar from "../layout/header/topNavBar/search-bar/SearchBar";
+import UserProfilePage from "../users/pages/UserProfilePage";
+import EditProfile from "../users/pages/EditProfilePage";
+import UserManagementSystem from "../users/pages/UserManagementSystem";
+import MapPage from "../cards/map/MapPage";
 
 export default function Router() {
   return (
@@ -37,12 +41,14 @@ export default function Router() {
       <Routes>
         <Route path={ROUTES.CARDS} element={<CardPage />} />
         <Route path={ROUTES.ROOT} element={<CardPage />} />
+        <Route path={ROUTES.USERS} element={<UserManagementSystem />} />
 
         <Route path={ROUTES.ABOUT} element={<AboutPage />} />
         <Route path={ROUTES.LOGIN} element={<LoginPage />} />
         <Route path={ROUTES.SIGN_UP} element={<SignUpPage />} />
         <Route path={`${ROUTES.CARD_INFO}/:id`} element={<CardDetailsPage />} />
         <Route path={`${ROUTES.EDIT_CARD}/:id`} element={<EditCardPage />} />
+        <Route path="test" element={<MapPage />} />
 
         <Route path={ROUTES.SANDBOX} element={<SandBox />}>
           <Route path="counter" element={<Counter />} />
@@ -62,7 +68,8 @@ export default function Router() {
         <Route path={ROUTES.MY_CARDS} element={<MyCardsPage />} />
         <Route path={ROUTES.CREATE_CARD} element={<CreateCardPage />} />
         <Route path={ROUTES.EDIT_CARD} element={<EditCardPage />} />
-        <Route path="test" element={<SearchBar />} />
+        <Route path={ROUTES.USER_PROFILE} element={<UserProfilePage />} />
+        <Route path={ROUTES.EDIT_USER} element={<EditProfile />} />
 
         <Route path={ROUTES.ERROR} element={<ErrorPage />} />
       </Routes>

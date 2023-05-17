@@ -33,6 +33,7 @@ export default function EditCardPage() {
   useEffect(() => {
     handleGetCard(id).then((data) => {
       const modelCard = mapCardToModel(data);
+
       rest.setData(modelCard);
     });
   }, []);

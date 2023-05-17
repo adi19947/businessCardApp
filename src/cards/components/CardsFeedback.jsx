@@ -6,7 +6,7 @@ import Cards from "../../cards/components/Cards";
 
 export default function CardsFeedback({ isLoading, cards, error }) {
   if (isLoading) return <Spinner />;
-  if (error) return <Error errorMessage={error} />;
+  if (error) return <Error errorMessage={error?.message} />;
   if (cards && cards.length === 0) {
     return (
       <Typography m={2}>

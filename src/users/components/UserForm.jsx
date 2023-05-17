@@ -17,14 +17,15 @@ const UserForm = ({
   onInputChange,
   setData,
 }) => {
+  console.log(data);
   return (
     <Form
       onSubmit={onSubmit}
       onReset={onReset}
       onChange={onFormChange}
       styles={{ maxWidth: "800px" }}
+      errors={errors}
       title={title}
-      to={ROUTES.CARDS}
     >
       <Input
         name="first"
@@ -150,7 +151,10 @@ const UserForm = ({
       <Grid item>
         <FormControlLabel
           onChange={(e) => {
-            setData({ ...data, isBusiness: !!e.target.checked });
+            setData({
+              ...data,
+              isBusiness: !!e.target.checked,
+            });
           }}
           name="isBusiness"
           control={<Checkbox value={data.isBusiness} color="primary" />}
@@ -169,7 +173,7 @@ UserForm.propTypes = {
   errors: object.isRequired,
   data: object.isRequired,
   onInputChange: func.isRequired,
-  setData: func.isRequired,
+  setData: func,
 };
 
 export default React.memo(UserForm);

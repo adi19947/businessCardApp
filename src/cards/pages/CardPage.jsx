@@ -17,7 +17,7 @@ export default function CardPage() {
   }, []);
 
   if (isLoading) return <Spinner />;
-  if (error) return <Error errorMessage={error} />;
+  if (error) return <Error errorMessage={error?.message} />;
 
   return (
     <Box>
@@ -28,7 +28,7 @@ export default function CardPage() {
       >
         <PageHeader
           title="Cards"
-          subtitle="On this page you can find all business cards from all categories"
+          subtitle="On this page you can find business cards from all categories"
         />
         <CardsFeedback
           isLoading={isLoading}

@@ -75,12 +75,13 @@ export default function useCardsContextProvider() {
     try {
       setLoading(true);
       const cards = await getCards();
+
       requestStatus(false, null, cards);
-      snack("success", "All the cards are here!");
+      //snack("success", "All the cards are here!");
     } catch (error) {
       requestStatus(false, error, []);
     }
-  }, []);
+  }, [cards]);
 
   const handleGetMyCards = useCallback(async () => {
     try {
@@ -132,13 +133,13 @@ export default function useCardsContextProvider() {
   //handleLikeCard
   const handleLikeCard = useCallback(
     async (cardId) => {
-      console.log("check");
       try {
         const card = await changeLikeStatus(cardId);
         setFavCards(favCards.filter((card) => card._id !== cardId));
-        console.log("check2");
+        handleGetCards();
         requestStatus(false, null, cards, card);
-        if (card.likes.includes(user.id)) {
+
+        if (card.likes.includes(user?.id)) {
           snack("success", "The business card has been Liked");
         } else {
           snack("success", "The business card has been unliked");
@@ -147,22 +148,26 @@ export default function useCardsContextProvider() {
         requestStatus(false, error, []);
       }
     },
-    [favCards]
+    [favCards, user, cards, card]
   );
 
   //handleGetFavCards
   const handleGetFavCards = useCallback(async () => {
     try {
       setLoading(true);
+      if (!user) {
+        // Handle the case when the user is null
+        throw new Error("User is null");
+      }
       const cards = await getCards();
 
-      setFavCards(cards.filter((card) => card.likes.includes(user.id)));
+      setFavCards(cards.filter((card) => card.likes.includes(user?.id)));
 
       requestStatus(false, null, cards);
     } catch (error) {
       requestStatus(false, error, []);
     }
-  }, []);
+  }, [user]);
 
   //handleCreateCard
   const handleCreateCard = useCallback(async (cardFromClient) => {
