@@ -9,7 +9,7 @@ import { useLocation } from "react-router-dom";
 export default function NavBar() {
   const location = useLocation();
   const hideSearchBar = location.pathname.includes("card-info");
-  console.log(location);
+
   return (
     <AppBar position="sticky" color="primary" elevation={10}>
       <Toolbar sx={{ justifyContent: "space-between" }}>

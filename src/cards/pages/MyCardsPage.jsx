@@ -20,7 +20,7 @@ export default function MyCards() {
       handleGetMyCards();
     }
   }, [user]);
-  console.log(filteredCards);
+
   return (
     <div>
       <Container sx={{ mt: 2 }}>

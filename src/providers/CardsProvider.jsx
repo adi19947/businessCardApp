@@ -43,6 +43,7 @@ export default function useCardsContextProvider() {
   const [query, setQuery] = useState("");
   const [searchParams] = useSearchParams();
   const [filteredCards, setFilterCards] = useState([]);
+
   const [favCards, setFavCards] = useState([]);
   useAxios();
   const snack = useSnack();
@@ -88,7 +89,7 @@ export default function useCardsContextProvider() {
       setLoading(true);
 
       const cards = await getMyCards();
-      console.log(cards);
+
       requestStatus(false, null, cards);
     } catch (error) {
       requestStatus(false, error, []);
@@ -135,8 +136,11 @@ export default function useCardsContextProvider() {
     async (cardId) => {
       try {
         const card = await changeLikeStatus(cardId);
+
         setFavCards(favCards.filter((card) => card._id !== cardId));
-        handleGetCards();
+        // handleGetCards();
+
+        //console.log(favCards);
         requestStatus(false, null, cards, card);
 
         if (card.likes.includes(user?.id)) {
@@ -148,7 +152,7 @@ export default function useCardsContextProvider() {
         requestStatus(false, error, []);
       }
     },
-    [favCards, user, cards, card]
+    [user, cards, card, favCards]
   );
 
   //handleGetFavCards
